@@ -15,34 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('registration.driver_helper.registers1');
-});
-Route::get('/registers2', function () {
-    return view('registration.driver_helper.registers2');
-});
-Route::get('/registers3', function () {
-    return view('registration.driver_helper.registers3');
-});
-Route::get('/registers4', function () {
-    return view('registration.driver_helper.registers4');
-});
-Route::get('/registers5', function () {
-    return view('registration.driver_helper.registers5');
-}); 
-Route::get('/registerscl1', function () {
-    return view('registration.client.registerscl1');
-});
-Route::get('/registerscl2', function () {
-    return view('registration.client.registerscl2');
-});
-Route::get('/registerscl3', function () {
-    return view('registration.client.registerscl3');
-});
-Route::get('/registerscl4', function () {
-    return view('registration.client.registerscl4');
-});
-Route::get('/registerscl5', function () {
-    return view('registration.client.registerscl5');
+    return view('welcome');
 });
 
 Route::get('/dashboard', function () {

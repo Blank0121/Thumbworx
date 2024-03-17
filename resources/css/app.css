@@ -9,3 +9,13 @@
     letter-spacing: 2px;
     font-weight: 400;
 }
+
+#dh-drp:hover > #dh {
+    visibility: visible;
+    display: block;
+}
+
+#cl-drp:hover > #cl {
+    visibility: visible;
+    display: block;
+}

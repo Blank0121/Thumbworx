@@ -1,10 +1,7 @@
 <x-registration-layout>
-
     <x-registration-card>
         <form action="/" class=" flex-col flex gap-4 w-full signup-form px-10 py-8">
             @csrf
-
-
             <div class="flex row w-full justify-between">
                 <div class="w-full font-semibold">
                     <label for="License">Business Permit</label>

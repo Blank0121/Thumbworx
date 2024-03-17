@@ -1,30 +1,33 @@
 <x-registration-layout>
     <x-registration-card>
-        <form action="/registers3" class=" flex-col flex gap-4 w-full signup-form px-10 py-8">
+        <form action="{{ route('dh.step-2') }}" method="POST" class=" flex-col flex gap-4 w-full signup-form px-10 py-8">
             @csrf
-            <div class="flex row w-full justify-between">
-                <div class="w-5/12">
-                    <label for="Number">Phone Number 1</label>
-                    <x-bladewind.input name="Number" type="text" required="true" id="Number" class="rounded-md"
-                        error_message=" Phone Number 1 is required"
-                        onfocus="changeCss('.Number', '!border-2,!border-red-400')"
-                        onblur="changeCss('.Number', '!border-2,!border-red-400', 'remove')" />
+            <div class="flex w-full gap-4">
+                <div class="w-full">
+                    <label for="phone_number1" class="text-sm font-semibold">Phone Number 1</label>
+                    <x-text-input required id="phone_number1" class="block mt-1 w-full" name="phone_number1"
+                        :value="old('phone_number1')" autofocus autocomplete="off" />
+                    @if ($errors->has('phone_number1'))
+                        <x-input-error :messages="$errors->get('phone_number1')" class="mt-1" />
+                    @endif
                 </div>
-                <div class="w-5/12">
-                    <label for="Phone" class="">Phone Number 2</label>
-                    <x-bladewind.input name="Phone" type="text" required="true" id="Phone" class="rounded-md"
-                        error_message="Phone Number 2 is required"
-                        onfocus="changeCss('.Phone', '!border-2,!border-red-400')"
-                        onblur="changeCss('.Phone', '!border-2,!border-red-400', 'remove')" />
-
+                <div class="w-full">
+                    <label for="phone_number2" class="text-sm font-semibold">Phone Number 2</label>
+                    <x-text-input required id="phone_number2" class="block mt-1 w-full" name="phone_number2"
+                        :value="old('phone_number2')" autocomplete="off" />
+                    @if ($errors->has('phone_number2'))
+                        <x-input-error :messages="$errors->get('phone_number2')" class="mt-1" />
+                    @endif
                 </div>
             </div>
             <div class="flex w-full justify-between">
                 <div class="w-full">
-                    <label for="Email">Email</label>
-                    <x-bladewind.input name="Email" type="text" required="true" id="Email" class="rounded-md"
-                        error_message="Email is required" onfocus="changeCss('.Email', '!border-2,!border-red-400')"
-                        onblur="changeCss('.Email', '!border-2,!border-red-400', 'remove')" />
+                    <label for="email" class="text-sm font-semibold">Email</label>
+                    <x-text-input required id="email" type="email" class="block mt-1 w-full" name="email"
+                        :value="old('email')" autocomplete="off" />
+                    @if ($errors->has('email'))
+                        <x-input-error :messages="$errors->get('email')" class="mt-1" />
+                    @endif
                 </div>
             </div>
 

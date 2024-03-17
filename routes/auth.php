@@ -7,15 +7,16 @@ use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
-use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\DriverHelperController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
-    Route::get('register', [RegisteredUserController::class, 'create'])
-                ->name('register');
 
-    Route::post('register', [RegisteredUserController::class, 'store']);
+    // Route::get('register/role/driver_helper', [RegisteredUserController::class, 'create'])
+    //             ->name('register.driver_helper');
+
+    // Route::post('register/role/driver_helper', [RegisteredUserController::class, 'store']);
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
                 ->name('login');
@@ -33,6 +34,34 @@ Route::middleware('guest')->group(function () {
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.store');
+
+    // Driver/Helper and Client Registration Routes
+
+    Route::get('/driver_helper/step/1', [DriverHelperController::class, "driverHelperStepOne"])->name("dh.step-1");
+    Route::post('/driver_helper/step/1', [DriverHelperController::class, "stepOne"]);
+    Route::get('/driver_helper/step/2', [DriverHelperController::class, "driverHelperStepTwo"])->name("dh.step-2");
+    Route::post('/driver_helper/step/2', [DriverHelperController::class, "stepTwo"]);
+    Route::get('/driver_helper/step/3', [DriverHelperController::class, "driverHelperStepThree"])->name("dh.step-3");
+    Route::get('/driver_helper/step/4', [DriverHelperController::class, "driverHelperStepFour"])->name("dh.step-4");
+    Route::get('/driver_helper/step/5', [DriverHelperController::class, "driverHelperStepFive"])->name("dh.step-5");
+   
+
+    Route::get('/registerscl1', function () {
+        return view('registration.client.registerscl1');
+    });
+    Route::get('/registerscl2', function () {
+        return view('registration.client.registerscl2');
+    });
+    Route::get('/registerscl3', function () {
+        return view('registration.client.registerscl3');
+    });
+    Route::get('/registerscl4', function () {
+        return view('registration.client.registerscl4');
+    });
+    Route::get('/registerscl5', function () {
+        return view('registration.client.registerscl5');
+    });
+                
 });
 
 Route::middleware('auth')->group(function () {

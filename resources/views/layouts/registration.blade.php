@@ -16,8 +16,7 @@
 
 <body class="font-sans text-gray-900 antialiased">
     <div
-        class=" bg-gradient-to-r from-[#0E0F62] to-[#1D1FC8] min-h-screen flex justify-center gap-8 sm:justify-center sm:pt-0">
-
+        class="bg-gradient-to-r from-[#0E0F62] to-[#1D1FC8] min-h-screen flex justify-center gap-8 sm:justify-center sm:pt-0">
         <div class="flex flex-col w-max gap-52">
             <div>
                 <span class="absolute top-10 left-[-10px] w-[40%] rounded-full bg-white h-6"></span>
