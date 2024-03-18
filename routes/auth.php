@@ -15,14 +15,6 @@ use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 
 Route::middleware('guest')->group(function () {
     
-    Route::get('/driver_helper/draft', function (Request $request) {
-        $user_id = $request->cookie('user_id');
-
-        $registrant = Registration::where('user_id', $user_id)->first();
-
-        return view("success-draft")->with("draft_id", $registrant->draft_id);
-    })->name('dh.draft');
-
     // Route::get('register/role/driver_helper', [RegisteredUserController::class, 'create'])
     //             ->name('register.driver_helper');
 
@@ -57,7 +49,9 @@ Route::middleware('guest')->group(function () {
     Route::get('/driver_helper/step/5', [DriverHelperController::class, "driverHelperStepFive"])->name("dh.step-5");
    
     // Draft registration route
-    Route::post('/driver_helper/draft', [DriverHelperController::class, "draft"])->name('dh.draft');
+    Route::get('/driver_helper/draft', [DriverHelperController::class, 'draftViewDH'])->name('dh.save-draft');
+    Route::post('/driver_helper/draft', [DriverHelperController::class, "generateDraftDH"])->name('dh.draft');
+    Route::post('/driver_helper/get-draft', [DriverHelperController::class, 'getDraftDH'])->name('dh.get-draft');
 
     Route::get('/registerscl1', function () {
         return view('registration.client.registerscl1');

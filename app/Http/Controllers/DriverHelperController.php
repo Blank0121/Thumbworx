@@ -6,11 +6,53 @@ use App\Models\User;
 use App\Models\Registration;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Str;
 
 class DriverHelperController extends Controller
 {
-   function driverHelperStepOne(Request $request) {
+
+    function draftViewDH(Request $request) {
+        $user_id = $request->cookie('user_id');
+
+        $registrant = Registration::where('user_id', $user_id)->first();
+
+        return view("success-draft")->with("draft_id", $registrant->draft_id);
+    }
+
+    function getDraftDH(Request $request) {
+
+        $request->validate([
+            'draft_id' => ['required', 'uuid']
+        ], [
+            'draft_id.required' => 'Draft ID is required',
+            'draft_id.uuid' => 'Invalid draft ID'
+        ]);
+
+        $registrant = Registration::where('draft_id', $request->draft_id)->first();
+
+        return redirect()->route('dh.step-'.strval($registrant->step_id));
+    }
+
+    function generateDraftDH(Request $request) {
+        $user_id = $request->cookie('user_id');
+
+        if (!$user_id) {
+            return redirect('/');
+        }
+
+        $user = User::find($user_id);
+
+        $user->save($request->all());
+
+        Registration::where('user_id', $user_id)->update(["draft_id" => strval(Str::uuid())]);
+
+        Cookie::forget("user_id");
+
+        return redirect()->route('dh.save-draft');
+    }
+
+    function driverHelperStepOne(Request $request) {
 
     $user_id = $request->cookie('user_id');
 
@@ -102,7 +144,7 @@ class DriverHelperController extends Controller
         return view('registration.driver_helper.registers5');
     }
 
-    public function stepOne(Request $request): RedirectResponse
+     function stepOne(Request $request): RedirectResponse
     {
         $user_id = $request->cookie('user_id');
 
@@ -146,7 +188,7 @@ class DriverHelperController extends Controller
         return redirect("/driver_helper/step/2");
     }
 
-    public function stepTwo(Request $request): RedirectResponse
+     function stepTwo(Request $request): RedirectResponse
     {
         $user_id = $request->cookie('user_id');
 
@@ -173,7 +215,7 @@ class DriverHelperController extends Controller
 
         return redirect("/driver_helper/step/3");
     }
-    public function stepThree(Request $request)
+     function stepThree(Request $request)
     {
         $user_id = $request->cookie('user_id');
 
@@ -217,16 +259,5 @@ class DriverHelperController extends Controller
        
     }
 
-    public function draft(Request $request) {
-        $user_id = $request->cookie('user_id');
-
-        if (!$user_id) {
-            return redirect('/');
-        }
-
-        Registration::where('user_id', $user_id)->update(["draft_id" => strval(Str::uuid())]);
-
-        return redirect()->route('dh.draft');
-    }
-
+   
 }

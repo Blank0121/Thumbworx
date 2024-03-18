@@ -24,7 +24,6 @@
                 <x-register-dropdown />
             </div>
         @endif
-
         <div class="max-w-7xl mx-auto p-6 lg:p-8">
             <div class="flex justify-center">
                 <svg viewBox="0 0 62 65" fill="none" xmlns="http://www.w3.org/2000/svg"
@@ -34,7 +33,6 @@
                         fill="#FF2D20" />
                 </svg>
             </div>
-
             <div class="mt-16">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
                     <a href="https://laravel.com/docs"

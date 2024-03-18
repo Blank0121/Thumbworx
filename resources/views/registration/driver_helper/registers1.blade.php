@@ -168,25 +168,20 @@
                     @endif
                 </div>
             </div>
+            <div class="flex w-full justify-between">
+                <form action="{{ route('dh.save-draft') }}" class="save-draft" method="post">
+                    @csrf
+                    <x-bladewind.button size="small" can_submit="false" onclick="showModal('save-draft')">Save as
+                        draft</x-bladewind.button>
+                </form>
+                <x-bladewind.button can_submit="true" size="small">Next</x-bladewind.button>
+            </div>
         </form>
-        <div class="flex w-full justify-between px-10 pb-6">
-            <form action="{{ route('dh.draft') }}" class="draft-form" method="post">
-                @csrf
-                <x-bladewind.button size="small" can_submit="false" onclick="showModal('save-draft')">Save as
-                    draft</x-bladewind.button>
-            </form>
-            <x-bladewind.button size="small" id="submit-btn" onclick="submitForm()">Next</x-bladewind.button>
-        </div>
-        <x-draft-modal />
+        <x-confirm-draft-modal />
         <script>
             const formElement = document.querySelector(".registration-form")
-            const submitBtn = document.querySelector("#submit-btn")
             const birthDateElement = document.querySelector("#birth_date")
             const ageElement = document.querySelector("#age")
-
-            submitBtn.addEventListener("click", () => {
-                formElement.submit();
-            })
 
             birthDateElement.addEventListener("change", (e) => {
                 const month_diff = Date.now() - new Date(e.target.value).getTime()

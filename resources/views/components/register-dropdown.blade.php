@@ -27,9 +27,11 @@
                         </x-bladewind.button>
                     </a>
                     <li class="mt-1">
-                        <x-bladewind.button class="w-full" radius="small" type="secondary" size="small">
+                        <x-bladewind.button class="w-full" radius="small" can_submit="false"
+                            onclick="showModal('draft-modal')" type="secondary" size="small">
                             Draft
                         </x-bladewind.button>
+                        <x-draft-modal />
                     </li>
                 </ul>
             </li>
