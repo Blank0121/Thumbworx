@@ -325,7 +325,8 @@ $countries = [
                 </div>
             </div>
 
-            <div class="font-semibold " ><input type="checkbox" class="rounded-sm" id ="pereqcur"> <label for="pereqcur">Is your Permanent Address is your Current Address</label>
+            <div class="font-semibold "><input type="checkbox" class="rounded-sm" id ="pereqcur"> <label
+                    for="pereqcur">Is your Permanent Address is your Current Address</label>
 
             </div>
             <div class="text-xl font-bold">
@@ -409,6 +410,7 @@ $countries = [
                 </div>
             </div>
 
+            Miras is great
 
             <div class="flex w-full justify-center gap-5 ">
 
@@ -423,18 +425,18 @@ $countries = [
     </x-registration-card>
     <script>
         const perEqCurElement = document.querySelector("#pereqcur");
-        const per_city= document.querySelector("#per_city");
+        const per_city = document.querySelector("#per_city");
         const per_barangay = document.querySelector("#per_barangay");
-        const per_country= document.querySelector("#per_country");
-        const per_house_number= document.querySelector("#per_house_number");
+        const per_country = document.querySelector("#per_country");
+        const per_house_number = document.querySelector("#per_house_number");
         const per_province = document.querySelector("#per_province");
         const per_region = document.querySelector("#per_region");
         const per_street = document.querySelector("#per_street");
         const per_zip_code = document.querySelector("#per_zip_code");
-        const cur_city= document.querySelector("#cur_city");
+        const cur_city = document.querySelector("#cur_city");
         const cur_barangay = document.querySelector("#cur_barangay");
-        const cur_country= document.querySelector("#cur_country");
-        const cur_house_number= document.querySelector("#cur_house_number");
+        const cur_country = document.querySelector("#cur_country");
+        const cur_house_number = document.querySelector("#cur_house_number");
         const cur_province = document.querySelector("#cur_province");
         const cur_region = document.querySelector("#cur_region");
         const cur_street = document.querySelector("#cur_street");
@@ -442,28 +444,25 @@ $countries = [
 
 
         perEqCurElement.addEventListener("change", (e) => {
-            if(e.target.checked){
-                cur_city.value=per_city.value
-                cur_barangay.value=per_barangay.value
-                cur_house_number.value=per_house_number.value
-                cur_province.value=per_province.value
-                cur_region.value=per_region.value
-                cur_street.value=per_street.value
-                cur_zip_code.value=per_zip_code.value
-               
-    
-            }
-            else{
-                cur_city.value=" "
-                cur_barangay.value=""
-                cur_house_number.value=" "
-                cur_province.value=""
-                cur_region.value=" "
-                cur_street.value=" "
-                cur_zip_code.value=" "
+            if (e.target.checked) {
+                cur_city.value = per_city.value
+                cur_barangay.value = per_barangay.value
+                cur_house_number.value = per_house_number.value
+                cur_province.value = per_province.value
+                cur_region.value = per_region.value
+                cur_street.value = per_street.value
+                cur_zip_code.value = per_zip_code.value
+
+
+            } else {
+                cur_city.value = " "
+                cur_barangay.value = ""
+                cur_house_number.value = " "
+                cur_province.value = ""
+                cur_region.value = " "
+                cur_street.value = " "
+                cur_zip_code.value = " "
             }
         })
-
-     
     </script>
 </x-registration-layout>

@@ -172,7 +172,7 @@ class DriverHelperController extends Controller
 
         return redirect("/driver_helper/step/3");
     }
-    public function stepThree(Request $request): RedirectResponse
+    public function stepThree(Request $request)
     {
         $user_id = $request->cookie('user_id');
 
