@@ -7,8 +7,8 @@
 
 <script>
     saveDraft = () => {
-        if (validateForm('.registration-form')) {
-            domEl('.registration-form').submit();
+        if (validateForm('.draft-form')) {
+            domEl('.draft-form').submit();
         } else {
             return false;
         }

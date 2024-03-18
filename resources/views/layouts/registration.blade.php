@@ -14,7 +14,7 @@
     <script defer src="//unpkg.com/alpinejs"></script>
 </head>
 
-<body class="font-sans text-gray-900 antialiased pb-12 bg-gradient-to-r from-[#0E0F62] to-[#1D1FC8]">
+<body class="pb-12 bg-gradient-to-r from-[#0E0F62] to-[#1D1FC8]">
     <div class="min-h-screen flex justify-center gap-8 sm:justify-center sm:pt-0">
         <div class="flex flex-col w-max gap-52">
             <div>

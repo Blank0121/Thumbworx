@@ -7,7 +7,7 @@
 
     <x-registration-card>
         <form action="{{ route('dh.step-1') }}" method="POST"
-            class="registration-form flex-col flex gap-4 w-full px-10 py-8">
+            class="registration-form flex-col flex gap-4 w-full px-10 py-4">
             @csrf
             <div class="flex w-full gap-4">
                 <div class="w-3/5">
@@ -168,16 +168,25 @@
                     @endif
                 </div>
             </div>
-            <div class="flex w-full justify-between">
+        </form>
+        <div class="flex w-full justify-between px-10 pb-6">
+            <form action="{{ route('dh.draft') }}" class="draft-form" method="post">
+                @csrf
                 <x-bladewind.button size="small" can_submit="false" onclick="showModal('save-draft')">Save as
                     draft</x-bladewind.button>
-                <x-bladewind.button size="small" can_submit="true">Next</x-bladewind.button>
-            </div>
-        </form>
+            </form>
+            <x-bladewind.button size="small" id="submit-btn" onclick="submitForm()">Next</x-bladewind.button>
+        </div>
         <x-draft-modal />
         <script>
+            const formElement = document.querySelector(".registration-form")
+            const submitBtn = document.querySelector("#submit-btn")
             const birthDateElement = document.querySelector("#birth_date")
             const ageElement = document.querySelector("#age")
+
+            submitBtn.addEventListener("click", () => {
+                formElement.submit();
+            })
 
             birthDateElement.addEventListener("change", (e) => {
                 const month_diff = Date.now() - new Date(e.target.value).getTime()

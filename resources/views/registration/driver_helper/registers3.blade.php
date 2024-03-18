@@ -410,8 +410,6 @@ $countries = [
                 </div>
             </div>
 
-            Miras is great
-
             <div class="flex w-full justify-center gap-5 ">
 
                 <x-bladewind::button size="small" color="black" can_submit="true" name="btn-save"

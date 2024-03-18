@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Registration;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Str;
 
 class DriverHelperController extends Controller
 {
@@ -214,6 +215,18 @@ class DriverHelperController extends Controller
         ]);
 
        
+    }
+
+    public function draft(Request $request) {
+        $user_id = $request->cookie('user_id');
+
+        if (!$user_id) {
+            return redirect('/');
+        }
+
+        Registration::where('user_id', $user_id)->update(["draft_id" => strval(Str::uuid())]);
+
+        return redirect()->route('dh.draft');
     }
 
 }
