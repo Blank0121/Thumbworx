@@ -37,7 +37,7 @@ class DriverHelperController extends Controller
             "step_id" => 1,
         ]);
     
-        $cookie = cookie("user_id", $user->id, 30);
+        $cookie = cookie()->forever("user_id",  $user->id );
     
         return response(view('registration.driver_helper.registers1')->with("user", null))->cookie($cookie);
 
@@ -171,6 +171,49 @@ class DriverHelperController extends Controller
         Registration::where("user_id", $user_id)->update(["step_id" => 3]);
 
         return redirect("/driver_helper/step/3");
+    }
+    public function stepThree(Request $request): RedirectResponse
+    {
+        $user_id = $request->cookie('user_id');
+
+        $request->validate([
+            "per_zip_code" => ["regex:/^(?:\d{4})$/i", "required" ],
+            "per_country" => ["required","string"],
+            "per_house_number" => [ "required","alpha_num"],
+            "per_street" => [ "required","alpha_num"],
+            "per_barangay" => [ "required","alpha_num"],
+            "per_city" => [ "required","alpha"],
+            "per_province" => [ "required","alpha"],
+            "per_region" => [ "required","string"],
+            "cur_zip_code" => ["regex:/^(?:\d{4})$/i","required"],
+            "cur_country" => ["required","string"],
+            "cur_house_number" =>  ["required","alpha_num"],
+            "cur_street" =>  ["required","alpha_num"],
+            "cur_barangay" =>  ["required","alpha_num"],
+            "cur_city" => ["required","alpha"],
+            "cur_province" =>  ["required","alpha"],
+            "cur_region" =>  ["required","string"]
+        ], [
+            'per_zip_code.regex' => 'Invalid Zip Code',
+            'per_country' => 'Invalid Country e.g.(Philippines)',
+            'per_house_number' => 'Invalid House number e.g.(213)',
+            'per_street' => 'Invalid Street Address e.g.(Silangan Road)',
+            'per_barangay'=> 'Invalid Barangay',
+            'per_city' => 'Invalid City e.g.(Calamba)',
+            'per_province' => 'Invalid Province e.g.(Laguna)',
+            'per_region' => 'Invalid Region e.g.(IV-A)',
+            'cur_zip_code.regex' => 'Invalid Zip Code',
+            'cur_country' => 'Invalid country e.g.(Philippines)',
+            'cur_house_number' => 'Invalid house number e.g.(213)',
+            'cur_street' => 'Invalid street address e.g.(Silangan Road)',
+            'cur_barangay' => 'Invalid Barangay',
+            'cur_city' => 'Invalid City e.g.(Calamba)',
+            'cur_province' => 'Invalid Province e.g.(Laguna)',
+            'cur_region' => 'Invalid Region e.g.(IV-A)'
+           
+        ]);
+
+       
     }
 
 }

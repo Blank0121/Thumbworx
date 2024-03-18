@@ -246,7 +246,7 @@ $countries = [
 <link href="{{ asset('vendor/bladewind/css/flags.css') }}" rel="stylesheet" />
 <x-registration-layout>
     <x-registration-card>
-        <form action="/registers4" class="flex-col flex gap-4 w-full signup-form px-10 py-8">
+        <form action="{{ route('dh.step-3') }}" method="POST" class="flex-col flex gap-4 w-full signup-form px-10 py-8">
             @csrf
             <div class="text-xl font-bold">
                 <h1>Permanent Address</h1>
@@ -256,12 +256,18 @@ $countries = [
                     <label class="text-sm font-semibold" for="per_zip_code" class="">Zip Code</label>
                     <x-text-input required id="per_zip_code" class="block mt-1 w-full" name="per_zip_code"
                         :value="old('per_zip_code')" autocomplete="off" />
+                    @if ($errors->has('per_zip_code'))
+                        <x-input-error :messages="$errors->get('per_zip_code')" class="mt-1" />
+                    @endif
                 </div>
                 <div class="w-full">
                     <label class="text-sm font-semibold" for="per_country" class="">Country</label>
                     <x-bladewind.dropdown placeholder="Pick a country" name="per_country" label_key="country"
                         value_key="code" flag_key="code" :data="$countries" searchable="true" id="per_country"
                         class="rounded-md bg-white text-black text-sm font-semibold" />
+                    @if ($errors->has('per_country'))
+                        <x-input-error :messages="$errors->get('per_country')" class="mt-1" />
+                    @endif
                 </div>
             </div>
             <div class="flex w-full gap-4">
@@ -269,11 +275,17 @@ $countries = [
                     <label class="text-sm font-semibold" for="per_house_number">House No.</label>
                     <x-text-input required id="per_house_number" class="block mt-1 w-full" name="per_house_number"
                         :value="old('per_house_number')" autofocus autocomplete="off" />
+                    @if ($errors->has('per_house_number'))
+                        <x-input-error :messages="$errors->get('per_house_number')" class="mt-1" />
+                    @endif
                 </div>
                 <div class="w-full">
                     <label class="text-sm font-semibold" for="per_street">Street Address</label>
                     <x-text-input required id="per_street" class="block mt-1 w-full" name="per_street" :value="old('per_street')"
                         autocomplete="off" />
+                    @if ($errors->has('per_street'))
+                        <x-input-error :messages="$errors->get('per_street')" class="mt-1" />
+                    @endif
                 </div>
             </div>
             <div class="flex w-full gap-4">
@@ -281,11 +293,17 @@ $countries = [
                     <label class="text-sm font-semibold" for="per_barangay"> Barangay</label>
                     <x-text-input required id="per_barangay" class="block mt-1 w-full" name="per_barangay"
                         :value="old('per_barangay')" autocomplete="off" />
+                    @if ($errors->has('per_barangay'))
+                        <x-input-error :messages="$errors->get('per_barangay')" class="mt-1" />
+                    @endif
                 </div>
                 <div class="w-full">
                     <label class="text-sm font-semibold" for="per_city">City</label>
                     <x-text-input required id="per_city" class="block mt-1 w-full" name="per_city" :value="old('per_city')"
                         autocomplete="off" />
+                    @if ($errors->has('per_city'))
+                        <x-input-error :messages="$errors->get('per_city')" class="mt-1" />
+                    @endif
                 </div>
             </div>
             <div class="flex w-full gap-4">
@@ -293,16 +311,22 @@ $countries = [
                     <label class="text-sm font-semibold" for="per_province">Province</label>
                     <x-text-input required id="per_province" class="block mt-1 w-full" name="per_province"
                         :value="old('per_province')" autocomplete="off" />
+                    @if ($errors->has('per_province'))
+                        <x-input-error :messages="$errors->get('per_province')" class="mt-1" />
+                    @endif
                 </div>
                 <div class="w-full">
                     <label class="text-sm font-semibold" for="per_region">Region</label>
-                    <x-text-input required id="per_region" class="block mt-1 w-full" name="per_region" :value="old('per_region')"
-                        autocomplete="off" />
+                    <x-text-input required id="per_region" class="block mt-1 w-full" name="per_region"
+                        :value="old('per_region')" autocomplete="off" />
+                    @if ($errors->has('per_region'))
+                        <x-input-error :messages="$errors->get('per_region')" class="mt-1" />
+                    @endif
                 </div>
             </div>
 
-            <div class="font-semibold"><x-bladewind.checkbox
-                    label="Is your Permanent Address is your Current Address" />
+            <div class="font-semibold " ><input type="checkbox" class="rounded-sm" id ="pereqcur"> <label for="pereqcur">Is your Permanent Address is your Current Address</label>
+
             </div>
             <div class="text-xl font-bold">
                 <h1>Current Address</h1>
@@ -312,6 +336,9 @@ $countries = [
                     <label class="text-sm font-semibold" for="cur_zip_code">Zip Code</label>
                     <x-text-input required id="cur_zip_code" class="block mt-1 w-full" name="cur_zip_code"
                         :value="old('cur_zip_code')" autocomplete="off" />
+                    @if ($errors->has('cur_zip_code'))
+                        <x-input-error :messages="$errors->get('cur_zip_code')" class="mt-1" />
+                    @endif
                 </div>
                 <div class="w-full">
                     <div class="flex flex-col w-64">
@@ -319,6 +346,10 @@ $countries = [
                         <x-bladewind.dropdown placeholder="Pick a country" name="cur_country" label_key="country"
                             value_key="code" flag_key="code" :data="$countries" searchable="true" id="cur_country"
                             class="rounded-md bg-white text-black text-sm font-semibold" />
+                        @if ($errors->has('cur_country'))
+                            <x-input-error :messages="$errors->get('cur_country')" class="mt-1" />
+                        @endif
+
                     </div>
                 </div>
             </div>
@@ -327,11 +358,17 @@ $countries = [
                     <label class="text-sm font-semibold" for="cur_house_number">House No.</label>
                     <x-text-input required id="cur_house_number" class="block mt-1 w-full" name="cur_house_number"
                         :value="old('cur_house_number')" autocomplete="off" />
+                    @if ($errors->has('cur_house_number'))
+                        <x-input-error :messages="$errors->get('cur_house_number')" class="mt-1" />
+                    @endif
                 </div>
                 <div class="w-full">
                     <label class="text-sm font-semibold" for="cur_street">Street Address</label>
                     <x-text-input required id="cur_street" class="block mt-1 w-full" name="cur_street"
                         :value="old('cur_street')" autocomplete="off" />
+                    @if ($errors->has('cur_street'))
+                        <x-input-error :messages="$errors->get('cur_street')" class="mt-1" />
+                    @endif
                 </div>
             </div>
 
@@ -340,11 +377,17 @@ $countries = [
                     <label class="text-sm font-semibold" for="cur_barangay"> Barangay</label>
                     <x-text-input required id="cur_barangay" class="block mt-1 w-full" name="cur_barangay"
                         :value="old('cur_barangay')" autocomplete="off" />
+                    @if ($errors->has('cur_barangay'))
+                        <x-input-error :messages="$errors->get('cur_barangay')" class="mt-1" />
+                    @endif
                 </div>
                 <div class="w-full">
                     <label class="text-sm font-semibold" for="cur_city">City</label>
                     <x-text-input required id="cur_city" class="block mt-1 w-full" name="cur_city"
                         :value="old('cur_city')" autocomplete="off" />
+                    @if ($errors->has('cur_city'))
+                        <x-input-error :messages="$errors->get('cur_city')" class="mt-1" />
+                    @endif
                 </div>
             </div>
             <div class="flex w-full gap-4">
@@ -352,11 +395,17 @@ $countries = [
                     <label class="text-sm font-semibold" for="cur_province">Province</label>
                     <x-text-input required id="cur_province" class="block mt-1 w-full" name="cur_province"
                         :value="old('cur_province')" autocomplete="off" />
+                    @if ($errors->has('cur_province'))
+                        <x-input-error :messages="$errors->get('cur_province')" class="mt-1" />
+                    @endif
                 </div>
                 <div class="w-full">
                     <label class="text-sm font-semibold" for="cur_region">Region</label>
                     <x-text-input required id="cur_region" class="block mt-1 w-full" name="cur_region"
                         :value="old('cur_region')" autocomplete="off" />
+                    @if ($errors->has('cur_region'))
+                        <x-input-error :messages="$errors->get('cur_region')" class="mt-1" />
+                    @endif
                 </div>
             </div>
 
@@ -370,5 +419,51 @@ $countries = [
                         has_spinner="true" onclick="showModal('Continue')">Next </x-bladewind.button>
             </div>
         </form>
+
     </x-registration-card>
+    <script>
+        const perEqCurElement = document.querySelector("#pereqcur");
+        const per_city= document.querySelector("#per_city");
+        const per_barangay = document.querySelector("#per_barangay");
+        const per_country= document.querySelector("#per_country");
+        const per_house_number= document.querySelector("#per_house_number");
+        const per_province = document.querySelector("#per_province");
+        const per_region = document.querySelector("#per_region");
+        const per_street = document.querySelector("#per_street");
+        const per_zip_code = document.querySelector("#per_zip_code");
+        const cur_city= document.querySelector("#cur_city");
+        const cur_barangay = document.querySelector("#cur_barangay");
+        const cur_country= document.querySelector("#cur_country");
+        const cur_house_number= document.querySelector("#cur_house_number");
+        const cur_province = document.querySelector("#cur_province");
+        const cur_region = document.querySelector("#cur_region");
+        const cur_street = document.querySelector("#cur_street");
+        const cur_zip_code = document.querySelector("#cur_zip_code");
+
+
+        perEqCurElement.addEventListener("change", (e) => {
+            if(e.target.checked){
+                cur_city.value=per_city.value
+                cur_barangay.value=per_barangay.value
+                cur_house_number.value=per_house_number.value
+                cur_province.value=per_province.value
+                cur_region.value=per_region.value
+                cur_street.value=per_street.value
+                cur_zip_code.value=per_zip_code.value
+               
+    
+            }
+            else{
+                cur_city.value=" "
+                cur_barangay.value=""
+                cur_house_number.value=" "
+                cur_province.value=""
+                cur_region.value=" "
+                cur_street.value=" "
+                cur_zip_code.value=" "
+            }
+        })
+
+     
+    </script>
 </x-registration-layout>

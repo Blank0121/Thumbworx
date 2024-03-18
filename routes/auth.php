@@ -42,6 +42,7 @@ Route::middleware('guest')->group(function () {
     Route::get('/driver_helper/step/2', [DriverHelperController::class, "driverHelperStepTwo"])->name("dh.step-2");
     Route::post('/driver_helper/step/2', [DriverHelperController::class, "stepTwo"]);
     Route::get('/driver_helper/step/3', [DriverHelperController::class, "driverHelperStepThree"])->name("dh.step-3");
+    Route::post('/driver_helper/step/3', [DriverHelperController::class, "stepThree"]);
     Route::get('/driver_helper/step/4', [DriverHelperController::class, "driverHelperStepFour"])->name("dh.step-4");
     Route::get('/driver_helper/step/5', [DriverHelperController::class, "driverHelperStepFive"])->name("dh.step-5");
    
