@@ -243,160 +243,123 @@ $countries = [
     ['country' => 'Zambia', 'code' => 'zm'],
     ['country' => 'Zimbabwe', 'code' => 'zw'],
 ]; ?>
-
+<link href="{{ asset('vendor/bladewind/css/flags.css') }}" rel="stylesheet" />
 <x-registration-layout>
     <x-registration-card>
-
         <form action="/registers4" class="flex-col flex gap-4 w-full signup-form px-10 py-8">
             @csrf
             <div class="text-xl font-bold">
-                <h1></h1>Permanent Address</h1>
+                <h1>Permanent Address</h1>
             </div>
-
-            <div class="flex row w-full justify-between">
-                <div>
-                    <label for="House">House No.</label>
-                    <x-bladewind.input name="House" type="text" required="true" id="House" class="rounded-md"
-                        error_message="House no. is required" onfocus="changeCss('.House', '!border-2,!border-red-400')"
-                        onblur="changeCss('.House', '!border-2,!border-red-400', 'remove')" />
-
+            <div class="flex w-full gap-4">
+                <div class="w-full">
+                    <label class="text-sm font-semibold" for="per_zip_code" class="">Zip Code</label>
+                    <x-text-input required id="per_zip_code" class="block mt-1 w-full" name="per_zip_code"
+                        :value="old('per_zip_code')" autocomplete="off" />
                 </div>
-                <div class="w-3/5">
-                    <label for="Street">Street Address</label>
-                    <x-bladewind.input name="Street" type="text" required="true" id="Street" class="rounded-md"
-                        error_message="Street Adress is required"
-                        onfocus="changeCss('.Street', '!border-2,!border-red-400')"
-                        onblur="changeCss('.Street', '!border-2,!border-red-400', 'remove')" />
+                <div class="w-full">
+                    <label class="text-sm font-semibold" for="per_country" class="">Country</label>
+                    <x-bladewind.dropdown placeholder="Pick a country" name="per_country" label_key="country"
+                        value_key="code" flag_key="code" :data="$countries" searchable="true" id="per_country"
+                        class="rounded-md bg-white text-black text-sm font-semibold" />
                 </div>
             </div>
-
-            <div class="flex row w-full justify-between">
-                <div class="w-3/5">
-                    <label for="Barangay"> Barangay</label>
-                    <x-bladewind.input name="Barangay" type="text" required="true" id="Barangay" class="rounded-md"
-                        error_message="Barangay is required"
-                        onfocus="changeCss('.Barangay', '!border-2,!border-red-400')"
-                        onblur="changeCss('.Barangay', '!border-2,!border-red-400', 'remove')" />
-
+            <div class="flex w-full gap-4">
+                <div class="w-full">
+                    <label class="text-sm font-semibold" for="per_house_number">House No.</label>
+                    <x-text-input required id="per_house_number" class="block mt-1 w-full" name="per_house_number"
+                        :value="old('per_house_number')" autofocus autocomplete="off" />
                 </div>
-
-                <div>
-                    <label for="City">City</label>
-                    <x-bladewind.input name="City" type="text" required="true" id="City" class="rounded-md"
-                        error_message="City is required" onfocus="changeCss('.City', '!border-2,!border-red-400')"
-                        onblur="changeCss('.City', '!border-2,!border-red-400', 'remove')" />
-
+                <div class="w-full">
+                    <label class="text-sm font-semibold" for="per_street">Street Address</label>
+                    <x-text-input required id="per_street" class="block mt-1 w-full" name="per_street" :value="old('per_street')"
+                        autocomplete="off" />
                 </div>
             </div>
-            <div class="flex row w-full justify-between">
-                <div class="w-3/5"><label for="Province">Province</label>
-                    <x-bladewind.input name="Province" type="text" required="true" id="Province" class="rounded-md"
-                        error_message="Province is required"
-                        onfocus="changeCss('.Province', '!border-2,!border-red-400')"
-                        onblur="changeCss('.Province', '!border-2,!border-red-400', 'remove')" />
+            <div class="flex w-full gap-4">
+                <div class="w-full">
+                    <label class="text-sm font-semibold" for="per_barangay"> Barangay</label>
+                    <x-text-input required id="per_barangay" class="block mt-1 w-full" name="per_barangay"
+                        :value="old('per_barangay')" autocomplete="off" />
                 </div>
-                <div>
-                    <label for="Region">Region</label>
-                    <x-bladewind.input name="Region" type="text" required="true" id="Region" class="rounded-md"
-                        error_message="Region is required" onfocus="changeCss('.Region', '!border-2,!border-red-400')"
-                        onblur="changeCss('Region', '!border-2,!border-red-400', 'remove')" />
-
+                <div class="w-full">
+                    <label class="text-sm font-semibold" for="per_city">City</label>
+                    <x-text-input required id="per_city" class="block mt-1 w-full" name="per_city" :value="old('per_city')"
+                        autocomplete="off" />
                 </div>
             </div>
-            <div class="flex row w-full justify-between">
-                <div class="w-5/12">
-                    <label for="Zip_Code" class="">Zip Code</label>
-                    <x-bladewind.input name="Zip_Code" type="text" required="true" id="Zip_Code" class="rounded-md"
-                        error_message="Zip Code is required"
-                        onfocus="changeCss('.Zip_Code', '!border-2,!border-red-400')"
-                        onblur="changeCss('Zip_Code', '!border-2,!border-red-400', 'remove')" />
+            <div class="flex w-full gap-4">
+                <div class="w-full">
+                    <label class="text-sm font-semibold" for="per_province">Province</label>
+                    <x-text-input required id="per_province" class="block mt-1 w-full" name="per_province"
+                        :value="old('per_province')" autocomplete="off" />
                 </div>
-                <div>
-                    <div class="flex flex-col w-64">
-                        <label for="Country" class="">Country</label>
-                        <x-bladewind.dropdown name="country" label_key="country" value_key="code" flag_key="code"
-                            :data="$countries" searchable="true" id="Country" class="rounded-md" />
-
-                    </div>
+                <div class="w-full">
+                    <label class="text-sm font-semibold" for="per_region">Region</label>
+                    <x-text-input required id="per_region" class="block mt-1 w-full" name="per_region" :value="old('per_region')"
+                        autocomplete="off" />
                 </div>
             </div>
+
             <div class="font-semibold"><x-bladewind.checkbox
                     label="Is your Permanent Address is your Current Address" />
             </div>
             <div class="text-xl font-bold">
                 <h1>Current Address</h1>
             </div>
-
-
-            <div class="flex row w-full justify-between">
-                <div>
-                    <label for="House">House No.</label>
-                    <x-bladewind.input name="House" type="text" required="true" id="House" class="rounded-md"
-                        error_message="House no. is required" onfocus="changeCss('.House', '!border-2,!border-red-400')"
-                        onblur="changeCss('.House', '!border-2,!border-red-400', 'remove')" />
-
+            <div class="flex w-full gap-4">
+                <div class="w-full">
+                    <label class="text-sm font-semibold" for="cur_zip_code">Zip Code</label>
+                    <x-text-input required id="cur_zip_code" class="block mt-1 w-full" name="cur_zip_code"
+                        :value="old('cur_zip_code')" autocomplete="off" />
                 </div>
-                <div class="w-3/5">
-                    <label for="Street">Street Address</label>
-                    <x-bladewind.input name="Street" type="text" required="true" id="Street"
-                        class="rounded-md" error_message="Street Adress is required"
-                        onfocus="changeCss('.Street', '!border-2,!border-red-400')"
-                        onblur="changeCss('.Street', '!border-2,!border-red-400', 'remove')" />
-                </div>
-            </div>
-
-            <div class="flex row w-full justify-between">
-                <div class="w-3/5">
-                    <label for="Barangay"> Barangay</label>
-                    <x-bladewind.input name="Barangay" type="text" required="true" id="Barangay"
-                        class="rounded-md" error_message="Barangay is required"
-                        onfocus="changeCss('.Barangay', '!border-2,!border-red-400')"
-                        onblur="changeCss('.Barangay', '!border-2,!border-red-400', 'remove')" />
-
-                </div>
-
-                <div>
-                    <label for="City">City</label>
-                    <x-bladewind.input name="City" type="text" required="true" id="City"
-                        class="rounded-md" error_message="City is required"
-                        onfocus="changeCss('.Surname', '!border-2,!border-red-400')"
-                        onblur="changeCss('City', '!border-2,!border-red-400', 'remove')" />
-
-                </div>
-            </div>
-            <div class="flex row w-full justify-between">
-                <div class="w-3/5"><label for="Province">Province</label>
-                    <x-bladewind.input name="Province" type="text" required="true" id="Province"
-                        class="rounded-md" error_message="Province is required"
-                        onfocus="changeCss('.Province', '!border-2,!border-red-400')"
-                        onblur="changeCss('Province', '!border-2,!border-red-400', 'remove')" />
-                </div>
-                <div>
-                    <label for="Region">Region</label>
-                    <x-bladewind.input name="Region" type="text" required="true" id="Region"
-                        class="rounded-md" error_message="Region is required"
-                        onfocus="changeCss('.Region', '!border-2,!border-red-400')"
-                        onblur="changeCss('Region', '!border-2,!border-red-400', 'remove')" />
-
-                </div>
-            </div>
-            <div class="flex row w-full justify-between">
-                <div class="w-5/12">
-                    <label for="Zip_Code" class="">Zip Code</label>
-                    <x-bladewind.input name="Province" type="text" required="true" id="Zip_Code"
-                        class="rounded-md" error_message="Zip Code is required"
-                        onfocus="changeCss('.Zip_Code', '!border-2,!border-red-400')"
-                        onblur="changeCss('Zip_Code', '!border-2,!border-red-400', 'remove')" />
-                </div>
-                <div>
+                <div class="w-full">
                     <div class="flex flex-col w-64">
-                        <label for="Country" class="">Country</label>
-                        <x-bladewind.dropdown name="country" label_key="country" value_key="code" flag_key="code"
-                            :data="$countries" searchable="true" id="Country" class="rounded-md" />
-
+                        <label class="text-sm font-semibold" for="cur_country">Country</label>
+                        <x-bladewind.dropdown placeholder="Pick a country" name="cur_country" label_key="country"
+                            value_key="code" flag_key="code" :data="$countries" searchable="true" id="cur_country"
+                            class="rounded-md bg-white text-black text-sm font-semibold" />
                     </div>
                 </div>
             </div>
+            <div class="flex w-full gap-4">
+                <div class="w-full">
+                    <label class="text-sm font-semibold" for="cur_house_number">House No.</label>
+                    <x-text-input required id="cur_house_number" class="block mt-1 w-full" name="cur_house_number"
+                        :value="old('cur_house_number')" autocomplete="off" />
+                </div>
+                <div class="w-full">
+                    <label class="text-sm font-semibold" for="cur_street">Street Address</label>
+                    <x-text-input required id="cur_street" class="block mt-1 w-full" name="cur_street"
+                        :value="old('cur_street')" autocomplete="off" />
+                </div>
+            </div>
+
+            <div class="flex w-full gap-4">
+                <div class="w-full">
+                    <label class="text-sm font-semibold" for="cur_barangay"> Barangay</label>
+                    <x-text-input required id="cur_barangay" class="block mt-1 w-full" name="cur_barangay"
+                        :value="old('cur_barangay')" autocomplete="off" />
+                </div>
+                <div class="w-full">
+                    <label class="text-sm font-semibold" for="cur_city">City</label>
+                    <x-text-input required id="cur_city" class="block mt-1 w-full" name="cur_city"
+                        :value="old('cur_city')" autocomplete="off" />
+                </div>
+            </div>
+            <div class="flex w-full gap-4">
+                <div class="w-full">
+                    <label class="text-sm font-semibold" for="cur_province">Province</label>
+                    <x-text-input required id="cur_province" class="block mt-1 w-full" name="cur_province"
+                        :value="old('cur_province')" autocomplete="off" />
+                </div>
+                <div class="w-full">
+                    <label class="text-sm font-semibold" for="cur_region">Region</label>
+                    <x-text-input required id="cur_region" class="block mt-1 w-full" name="cur_region"
+                        :value="old('cur_region')" autocomplete="off" />
+                </div>
+            </div>
+
 
             <div class="flex w-full justify-center gap-5 ">
 

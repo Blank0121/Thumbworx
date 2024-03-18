@@ -19,3 +19,23 @@
     visibility: visible;
     display: block;
 }
+
+.search_dropdown {
+    color: rgb(35, 35, 35) !important;
+    font-weight: 600 !important;
+    font-size: small !important;
+}
+
+.bw-dropdown {
+    color: rgb(35, 35, 35) !important;
+    background-color: white !important;
+    padding: 0.6rem !important;
+    font-weight: 600 !important;
+    border: 1px solid rgb(202, 202, 202) !important;
+    box-shadow: #0000000d;
+}
+
+.bw-dropdown:focus {
+    border-width: 2px !important;
+    border-color: #4f46e5 !important;
+}

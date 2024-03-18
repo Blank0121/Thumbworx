@@ -51,25 +51,25 @@
     'radius' => 'full',
 
     // css fpr various radii
-    'roundness'     => [
-        'none'      => 'rounded-none',
-        'small'     => 'rounded-md',
-        'medium'    => 'rounded-xl',
-        'full'      => 'rounded-full',
+    'roundness' => [
+        'none' => 'rounded-none',
+        'small' => 'rounded-md',
+        'medium' => 'rounded-xl',
+        'full' => 'rounded-full',
     ],
 
     // css for the various colours
-    'colours'       => [
-        'primary'   => '!bg-primary-500 focus:ring-primary-500/70 hover:!bg-primary-700 active:!bg-primary-700 %s',
-        'red'       => '!bg-red-500 focus:ring-red-500 hover:!bg-red-700 active:!bg-red-700 %s',
-        'yellow'    => '!bg-yellow-500 focus:ring-yellow-500 hover:!bg-yellow-700 active:!bg-yellow-700 %s',
-        'green'     => '!bg-green-500 focus:ring-green-500 hover:!bg-green-700 active:!bg-green-700 %s',
-        'blue'      => '!bg-blue-500 focus:ring-blue-500 hover:!bg-blue-700 active:!bg-blue-700 %s',
-        'orange'    => '!bg-orange-500 focus:ring-orange-500 hover:!bg-orange-700 active:!bg-orange-700 %s',
-        'purple'    => '!bg-purple-500 focus:ring-purple-500 hover:!bg-purple-700 active:!bg-purple-700 %s',
-        'cyan'      => '!bg-cyan-500 focus:ring-cyan-500 hover:!bg-cyan-700 active:!bg-cyan-700 %s',
-        'pink'      => '!bg-pink-500 focus:ring-pink-500 hover:!bg-pink-700 active:!bg-pink-700 %s',
-        'black'     => '!bg-black focus:ring-black hover:!bg-black active:!bg-black %s',
+    'colours' => [
+        'primary' => '!bg-primary-500 focus:ring-primary-500/70 hover:!bg-primary-700 active:!bg-primary-700 %s',
+        'red' => '!bg-red-500 focus:ring-red-500 hover:!bg-red-700 active:!bg-red-700 %s',
+        'yellow' => '!bg-yellow-500 focus:ring-yellow-500 hover:!bg-yellow-700 active:!bg-yellow-700 %s',
+        'green' => '!bg-green-500 focus:ring-green-500 hover:!bg-green-700 active:!bg-green-700 %s',
+        'blue' => '!bg-blue-500 focus:ring-blue-500 hover:!bg-blue-700 active:!bg-blue-700 %s',
+        'orange' => '!bg-orange-500 focus:ring-orange-500 hover:!bg-orange-700 active:!bg-orange-700 %s',
+        'purple' => '!bg-purple-500 focus:ring-purple-500 hover:!bg-purple-700 active:!bg-purple-700 %s',
+        'cyan' => '!bg-cyan-500 focus:ring-cyan-500 hover:!bg-cyan-700 active:!bg-cyan-700 %s',
+        'pink' => '!bg-pink-500 focus:ring-pink-500 hover:!bg-pink-700 active:!bg-pink-700 %s',
+        'black' => '!bg-black focus:ring-black hover:!bg-black active:!bg-black %s',
     ],
 ])
 
@@ -83,32 +83,46 @@
     $show_focus_ring = filter_var($show_focus_ring, FILTER_VALIDATE_BOOLEAN);
     $showFocusRing = filter_var($showFocusRing, FILTER_VALIDATE_BOOLEAN);
 
-    if($showSpinner) $show_spinner = $showSpinner;
-    if($hasSpinner) $has_spinner = $hasSpinner;
-    if($canSubmit) $can_submit = $canSubmit;
-    if(!$showFocusRing) $show_focus_ring = $showFocusRing;
+    if ($showSpinner) {
+        $show_spinner = $showSpinner;
+    }
+    if ($hasSpinner) {
+        $has_spinner = $hasSpinner;
+    }
+    if ($canSubmit) {
+        $can_submit = $canSubmit;
+    }
+    if (!$showFocusRing) {
+        $show_focus_ring = $showFocusRing;
+    }
 
-    $button_type = ($can_submit) ? 'submit' : 'button';
-    $spinner_css = (!$show_spinner) ? 'hidden' : '';
-    $focus_ring_css = (!$show_focus_ring) ? 'focus:!ring-0' : 'focus:!ring';
-    $primary_colour_css = ($type == 'primary') ? sprintf($colours[$color],$focus_ring_css) : '';
+    $button_type = $can_submit ? 'submit' : 'button';
+    $spinner_css = !$show_spinner ? 'hidden' : '';
+    $focus_ring_css = !$show_focus_ring ? 'focus:!ring-0' : 'focus:!ring';
+    $primary_colour_css = $type == 'primary' ? sprintf($colours[$color], $focus_ring_css) : '';
     $radius_css = $roundness[$radius] ?? 'rounded-full';
-    $button_text_css = (!empty($buttonTextCss)) ? $buttonTextCss : $button_text_css;
-    $button_text_colour = $button_text_css ?? ($type === 'primary' ? 'text-white hover:text-white' : 'text-black hover:text-black');
+    $button_text_css = !empty($buttonTextCss) ? $buttonTextCss : $button_text_css;
+    $button_text_colour =
+        $button_text_css ?? ($type === 'primary' ? 'text-white hover:text-white' : 'text-black hover:text-black');
     $disabled_css = $disabled ? 'disabled' : 'cursor-pointer';
-    $tag = ($tag !== 'a' && $tag !== 'button') ? 'button' : $tag;
-    $merged_attributes = $attributes->merge(['class' => "bw-button $size $type $name $primary_colour_css $disabled_css $radius_css"]);
+    $tag = $tag !== 'a' && $tag !== 'button' ? 'button' : $tag;
+    $merged_attributes = $attributes->merge([
+        'class' => "bw-button $size $type $name $primary_colour_css $disabled_css $radius_css",
+    ]);
 @endphp
 
-<{{ $tag }} {{ $merged_attributes }} @if($disabled) disabled @endif @if($tag == 'button') type="{{ $button_type }}" @endif >
-    @if(!empty($icon) && !$icon_right)
-        <x-bladewind::icon name="{{$icon}}" class="h-5 w-5 !-ml-2 rtl:!-mr-2 !mr-2 rtl:!ml-2 dark:text-white/80" />
+<{{ $tag }} {{ $merged_attributes }} @if ($disabled) disabled @endif
+    @if ($tag == 'button') type="{{ $button_type }}" @endif>
+    @if (!empty($icon) && !$icon_right)
+        <x-bladewind::icon name="{{ $icon }}"
+            class="h-5 w-5 !-ml-2 rtl:!-mr-2 !mr-2 rtl:!ml-2 dark:text-white/80" />
     @endif
     <span class="grow {{ $button_text_colour }}">{{ $slot }}</span>
-    @if(!empty($icon) && $icon_right && !$has_spinner)
-        <x-bladewind::icon name="{{$icon}}" class="h-5 w-5 !-mr-2 rtl:!-ml-2 !ml-2 rtl:!mr-2 dark:text-white/80" />
+    @if (!empty($icon) && $icon_right && !$has_spinner)
+        <x-bladewind::icon name="{{ $icon }}"
+            class="h-5 w-5 !-mr-2 rtl:!-ml-2 !ml-2 rtl:!mr-2 dark:text-white/80" />
     @endif
-    @if($has_spinner)
+    @if ($has_spinner)
         <x-bladewind::spinner class="h-4 w-4 !-mr-2 rtl:!-ml-2 !ml-2 rtl:!mr-2 {{ $spinner_css }}" />
     @endif
-</{{$tag}}>
+    </{{ $tag }}>

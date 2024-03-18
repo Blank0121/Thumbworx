@@ -14,8 +14,7 @@ class DriverHelperController extends Controller
     $user_id = $request->cookie('user_id');
 
     if ($user_id != null) {
-        $user = Registration::where("user_id", $user_id)->get();
-
+        $user = User::find($user_id);
         return view('registration.driver_helper.registers1')->with("user", $user);
     } 
         $user = User::create([
@@ -38,30 +37,74 @@ class DriverHelperController extends Controller
             "step_id" => 1,
         ]);
     
-        $cookie = cookie()->forever("user_id", $user->id);
+        $cookie = cookie("user_id", $user->id, 30);
     
         return response(view('registration.driver_helper.registers1')->with("user", null))->cookie($cookie);
 
     }
 
-    function driverHelperStepTwo() {
+    function driverHelperStepTwo(Request $request) {
+
+        $user_id = $request->cookie("user_id");
+
+        $registrant = Registration::where("user_id", $user_id)->first();
+
+        if ($registrant->step_id <= 1) {
+            return back();
+        }
+
+        if ($user_id != null) {
+            $user = User::find($user_id);
+            return view('registration.driver_helper.registers2')->with("user", $user);
+        } 
+
         return view('registration.driver_helper.registers2');
     }
 
-    function driverHelperStepThree() {
+    function driverHelperStepThree(Request $request) {
+
+        $user_id = $request->cookie("user_id");
+
+        $registrant = Registration::where("user_id", $user_id)->first();
+
+        if ($registrant->step_id <= 2) {
+            return back();
+        }
+
+
         return view('registration.driver_helper.registers3');
     }
 
-    function driverHelperStepFour() {
+    function driverHelperStepFour(Request $request) {
+
+        $user_id = $request->cookie("user_id");
+
+        $registrant = Registration::where("user_id", $user_id)->first();
+
+        if ($registrant->step_id <= 3) {
+            return back();
+        }
+
         return view('registration.driver_helper.registers4');
     }
 
-    function driverHelperStepFive() {
+    function driverHelperStepFive(Request $request) {
+
+        $user_id = $request->cookie("user_id");
+
+        $registrant = Registration::where("user_id", $user_id)->first();
+
+        if ($registrant->step_id <= 3) {
+            return back();
+        }
+
         return view('registration.driver_helper.registers5');
     }
 
     public function stepOne(Request $request): RedirectResponse
     {
+        $user_id = $request->cookie('user_id');
+
         $request->validate([
             'first_name' => ['required', 'regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/', 'max:25'],
             'middle_name' => ['required', 'regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/','max:25', ],
@@ -84,16 +127,32 @@ class DriverHelperController extends Controller
             'age.max' => 'Age must be below 100',
         ]);
 
+        $user = User::find($user_id);
+
+        $user->first_name = $request->first_name;
+        $user->middle_name = $request->middle_name;
+        $user->surname = $request->surname;
+        $user->gender = $request->gender;
+        $user->birth_date = $request->birth_date;
+        $user->age = $request->age;
+        $user->user_type = $request->user_type;
+        $user->marital_status = $request->marital_status;
+
+        $user->save();
+
+        Registration::where("user_id", $user_id)->update(["step_id" => 2]);
 
         return redirect("/driver_helper/step/2");
     }
 
     public function stepTwo(Request $request): RedirectResponse
     {
+        $user_id = $request->cookie('user_id');
+
         $request->validate([
             "phone_number1" => ["phone:PH", "required"],
             "phone_number2" => ["phone:PH", "required"],
-            "email" => ["email", "required", 'regex:/(@gmail.com | @yahoo.com )$/']
+            "email" => ["email", "required", 'regex:/[(@gmail.com)|(@yahoo.com)]$/']
         ], [
             'phone_number1.phone' => 'Invalid phone number e.g.(0909 090 0909)',
             'phone_number2.phone' => 'Invalid phone number e.g.(0909 090 0909)',
@@ -101,7 +160,17 @@ class DriverHelperController extends Controller
            
         ]);
 
-        return redirect("/driver_helper/step/2");
+        $user = User::find($user_id);
+
+        $user->phone_number1 = $request->phone_number1;
+        $user->phone_number2 = $request->phone_number2;
+        $user->email = $request->email;
+
+        $user->save();
+
+        Registration::where("user_id", $user_id)->update(["step_id" => 3]);
+
+        return redirect("/driver_helper/step/3");
     }
 
 }
