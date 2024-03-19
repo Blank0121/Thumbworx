@@ -325,9 +325,11 @@ $countries = [
                 </div>
             </div>
 
-            <div class="font-semibold "><input type="checkbox" class="rounded-sm" id ="pereqcur"> <label
-                    for="pereqcur">Is your Permanent Address is your Current Address</label>
-
+            <div class="flex gap-2 items-center">
+                <input type="checkbox" class="rounded-md" id ="pereqcur">
+                <label class="text-sm font-bold" for="pereqcur">Is your permanent address also your
+                    current address?
+                </label>
             </div>
             <div class="text-xl font-bold">
                 <h1>Current Address</h1>
@@ -409,18 +411,15 @@ $countries = [
                     @endif
                 </div>
             </div>
-
-            <div class="flex w-full justify-center gap-5 ">
-
-                <x-bladewind::button size="small" color="black" can_submit="true" name="btn-save"
-                    has_spinner="true" onclick="showModal('success')">Save As Draft </x-bladewind.button>
-
-                    <x-bladewind::button size="small" color="black" can_submit="true" name="btn-save"
-                        has_spinner="true" onclick="showModal('Continue')">Next </x-bladewind.button>
+            <div class="flex w-full justify-between">
+                <x-bladewind.button size="small" can_submit="false" onclick="showModal('save-draft')">Save as
+                    draft</x-bladewind.button>
+                <x-bladewind.button can_submit="true" size="small">Next</x-bladewind.button>
             </div>
         </form>
 
     </x-registration-card>
+    <x-confirm-draft-modal />
     <script>
         const perEqCurElement = document.querySelector("#pereqcur");
         const per_city = document.querySelector("#per_city");

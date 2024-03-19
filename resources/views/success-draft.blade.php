@@ -5,11 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="{{ asset('vendor/bladewind/css/animate.min.css') }}" rel="stylesheet" />
+    <link href="{{ asset('vendor/bladewind/css/bladewind-ui.min.css') }}" rel="stylesheet" />
+    <script src="{{ asset('vendor/bladewind/js/helpers.js') }}"></script>
     @vite('resources/css/app.css')
     <title>Save Draft Successful</title>
 </head>
 
-<body class="bg-gradient-to-r from-[#0E0F62] to-[#1D1FC8] min-h-screen flex items-center justify-center">
+<body class="bg-gradient-to-r from-[#0E0F62] to-[#1D1FC8] min-h-screen flex flex-col gap-4 items-center justify-center">
     <x-bladewind.card class="max-w-lg">
         <div class="flex flex-col gap-2 items-center justify-center">
             <h1 class="text-4xl font-bold capitalize text-gray-800">Registration saved!</h1>
@@ -32,6 +35,11 @@
             </div>
         </div>
     </x-bladewind.card>
+    <x-bladewind.button can_submit="false" size="small" icon="arrow-small-left">
+        <a href="/" class="w-full">
+            Go to homepage
+        </a>
+    </x-bladewind.button>
     <script>
         const copyButton = document.querySelector(".copy")
         const copyText = document.querySelector(".copy-text")

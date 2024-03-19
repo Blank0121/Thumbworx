@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 use App\Models\Registration;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Cookie;
-use Illuminate\Support\Str;
 
 class DriverHelperController extends Controller
 {
@@ -17,7 +16,9 @@ class DriverHelperController extends Controller
 
         $registrant = Registration::where('user_id', $user_id)->first();
 
-        return view("success-draft")->with("draft_id", $registrant->draft_id);
+        $cookie = cookie()->forget("user_id");
+
+        return response(view("success-draft")->with("draft_id", $registrant->draft_id))->withCookie($cookie);
     }
 
     function getDraftDH(Request $request) {
@@ -31,7 +32,9 @@ class DriverHelperController extends Controller
 
         $registrant = Registration::where('draft_id', $request->draft_id)->first();
 
-        return redirect()->route('dh.step-'.strval($registrant->step_id));
+        $user_id = cookie("user_id", $registrant->user_id);
+
+        return redirect()->route('dh.step-'.strval($registrant->step_id))->withCookie($user_id);
     }
 
     function generateDraftDH(Request $request) {
@@ -46,8 +49,6 @@ class DriverHelperController extends Controller
         $user->save($request->all());
 
         Registration::where('user_id', $user_id)->update(["draft_id" => strval(Str::uuid())]);
-
-        Cookie::forget("user_id");
 
         return redirect()->route('dh.save-draft');
     }
@@ -79,11 +80,10 @@ class DriverHelperController extends Controller
             "user_type" => "driver/helper",
             "step_id" => 1,
         ]);
-    
-        $cookie = cookie()->forever("user_id",  $user->id );
-    
-        return response(view('registration.driver_helper.registers1')->with("user", null))->cookie($cookie);
 
+        $user_id = cookie("user_id", $user->id);
+    
+        return response(view('registration.driver_helper.registers1')->with("user", null))->withCookie($user_id);
     }
 
     function driverHelperStepTwo(Request $request) {

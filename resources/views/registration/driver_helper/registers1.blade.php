@@ -6,8 +6,7 @@
     ?>
 
     <x-registration-card>
-        <form action="{{ route('dh.step-1') }}" method="POST"
-            class="registration-form flex-col flex gap-4 w-full px-10 py-4">
+        <form action="{{ route('dh.step-1') }}" method="POST" class="register-form flex-col flex gap-4 w-full px-10 py-4">
             @csrf
             <div class="flex w-full gap-4">
                 <div class="w-3/5">
@@ -162,26 +161,26 @@
                             <option class="text-sm font-semibold" value="married">Married</option>
                         </select>
                     @endif
-
                     @if ($errors->has('marital_status'))
                         <x-input-error :messages="$errors->get('marital_status')" class="mt-1" />
                     @endif
                 </div>
             </div>
             <div class="flex w-full justify-between">
-                <form action="{{ route('dh.save-draft') }}" class="save-draft" method="post">
-                    @csrf
-                    <x-bladewind.button size="small" can_submit="false" onclick="showModal('save-draft')">Save as
-                        draft</x-bladewind.button>
-                </form>
+                <x-bladewind.button size="small" can_submit="false" onclick="showModal('save-draft')">Save as
+                    draft</x-bladewind.button>
                 <x-bladewind.button can_submit="true" size="small">Next</x-bladewind.button>
             </div>
         </form>
-        <x-confirm-draft-modal />
         <script>
-            const formElement = document.querySelector(".registration-form")
+            const formElement = document.querySelector(".register-form")
             const birthDateElement = document.querySelector("#birth_date")
             const ageElement = document.querySelector("#age")
+            const formData = new FormData(formElement)
+
+            for (const key of formData.keys()) {
+                console.log(key)
+            }
 
             birthDateElement.addEventListener("change", (e) => {
                 const month_diff = Date.now() - new Date(e.target.value).getTime()
@@ -193,4 +192,5 @@
             })
         </script>
     </x-registration-card>
+    <x-confirm-draft-modal />
 </x-registration-layout>
