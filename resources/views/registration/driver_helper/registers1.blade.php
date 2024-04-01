@@ -10,7 +10,8 @@
             @csrf
             <div class="flex w-full gap-4">
                 <div class="w-3/5">
-                    <label for="first_name" class="text-sm font-semibold">First Name</label>
+                    <label for="first_name" class="text-sm font-semibold">First Name <span
+                            class="text-red-600">*</span></label>
                     @if ($user != null && $user->first_name != null)
                         <x-text-input required id="first_name" class="block mt-1 w-full" name="first_name"
                             value="{{ $user->first_name }}" />
@@ -23,7 +24,8 @@
                     @endif
                 </div>
                 <div class="w-2/5">
-                    <label for="middle_name" class="text-sm font-semibold"> Middle Name</label>
+                    <label for="middle_name" class="text-sm font-semibold">Middle Name <span
+                            class="text-red-600">*</span></label>
                     @if ($user != null && $user->middle_name != null)
                         <x-text-input required id="middle_name" class="block mt-1 w-full" name="middle_name"
                             value="{{ $user->middle_name }}" />
@@ -38,7 +40,8 @@
             </div>
             <div class="flex w-full gap-4">
                 <div class="w-3/5">
-                    <label for="surname" class="text-sm font-semibold">Surname</label>
+                    <label for="surname" class="text-sm font-semibold">Surname <span
+                            class="text-red-600">*</span></label>
                     @if ($user != null && $user->surname != null)
                         <x-text-input required id="surname" class="block mt-1 w-full" name="surname"
                             value="{{ $user->surname }}" />
@@ -51,7 +54,8 @@
                     @endif
                 </div>
                 <div class="flex flex-col gap-2 w-2/5">
-                    <label for="gender" class="text-sm font-semibold">Gender</label>
+                    <label for="gender" class="text-sm font-semibold">Gender <span
+                            class="text-red-600">*</span></label>
                     <div class="flex gap-6 w-full justify-center mt-1">
                         <div class="flex items-center justify-center gap-1">
                             <label class="text-sm font-semibold" for="male"><x-male-svg /></label>
@@ -81,7 +85,8 @@
             </div>
             <div class="flex w-full justify-center gap-4">
                 <div class="flex flex-col w-3/5">
-                    <label for="date" class="text-sm font-semibold">Birthdate</label>
+                    <label for="date" class="text-sm font-semibold">Birthdate <span
+                            class="text-red-600">*</span></label>
                     @if ($user != null && $user->birth_date != null)
                         <input required value="{{ $user->birth_date }}" type="date" name="birth_date" id="birth_date"
                             class="border-gray-300 shadow-sm rounded-md focus:border-indigo-600 focus:ring-indigo-600 text-sm font-semibold">
@@ -110,7 +115,8 @@
             </div>
             <div class="flex row w-full justify-center gap-4">
                 <div class="flex flex-col w-full">
-                    <label for="user_type" class="text-sm font-semibold">User Type</label>
+                    <label for="user_type" class="text-sm font-semibold">User Type <span
+                            class="text-red-600">*</span></label>
                     @if ($user != null && $user->user_type != null)
                         <select required
                             class="border-gray-300 shadow-sm rounded-md focus:border-indigo-600 focus:ring-indigo-600 text-sm font-semibold text-gray-600"
@@ -138,7 +144,8 @@
                     @endif
                 </div>
                 <div class="flex flex-col w-full">
-                    <label for="marital_status" class="text-sm font-semibold">Marital Status</label>
+                    <label for="marital_status" class="text-sm font-semibold">Marital Status <span
+                            class="text-red-600">*</span></label>
                     @if ($user != null && $user->marital_status != null)
                         <select required
                             class="border-gray-300 shadow-sm rounded-md focus:border-indigo-600 focus:ring-indigo-600 text-sm font-semibold text-gray-600"

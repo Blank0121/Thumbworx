@@ -4,7 +4,8 @@
             @csrf
             <div class="flex w-full gap-4">
                 <div class="w-full">
-                    <label for="phone_number1" class="text-sm font-semibold">Phone Number 1</label>
+                    <label for="phone_number1" class="text-sm font-semibold">Phone Number 1 <span
+                            class="text-red-600">*</span></label>
                     @if ($user != null && $user->phone_number1 != null)
                         <x-text-input required id="phone_number1" class="block mt-1 w-full" name="phone_number1"
                             value="{{ $user->phone_number1 }}" autocomplete="off" />
@@ -22,7 +23,7 @@
                         <x-text-input required id="phone_number2" class="block mt-1 w-full" name="phone_number2"
                             value="{{ $user->phone_number2 }}" autocomplete="off" />
                     @else
-                        <x-text-input required id="phone_number2" class="block mt-1 w-full" name="phone_number2"
+                        <x-text-input id="phone_number2" class="block mt-1 w-full" name="phone_number2"
                             :value="old('phone_number2')" autocomplete="off" />
                     @endif
                     @if ($errors->has('phone_number2'))
@@ -32,7 +33,8 @@
             </div>
             <div class="flex w-full justify-between">
                 <div class="w-full">
-                    <label for="email" class="text-sm font-semibold">Email</label>
+                    <label for="email" class="text-sm font-semibold">Email <span
+                            class="text-red-600">*</span></label>
                     @if ($user != null && $user->email != null)
                         <x-text-input id="email" type="email" class="block mt-1 w-full" name="email"
                             value="{{ $user->email }}" autocomplete="off" />

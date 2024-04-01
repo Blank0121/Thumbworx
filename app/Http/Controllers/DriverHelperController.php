@@ -32,7 +32,7 @@ class DriverHelperController extends Controller
 
         $registrant = Registration::where('draft_id', $request->draft_id)->first();
 
-        $user_id = cookie("user_id", $registrant->user_id);
+        $user_id = cookie()->forever("user_id", $registrant->user_id);
 
         return redirect()->route('dh.step-'.strval($registrant->step_id))->withCookie($user_id);
     }
@@ -114,6 +114,10 @@ class DriverHelperController extends Controller
             return back();
         }
 
+        if ($user_id != null) {
+            $user = User::find($user_id);
+            return view('registration.driver_helper.registers3')->with("user", $user);
+        } 
 
         return view('registration.driver_helper.registers3');
     }
@@ -128,6 +132,11 @@ class DriverHelperController extends Controller
             return back();
         }
 
+        if ($user_id != null) {
+            $user = User::find($user_id);
+            return view('registration.driver_helper.registers4')->with("user", $user);
+        } 
+
         return view('registration.driver_helper.registers4');
     }
 
@@ -140,6 +149,11 @@ class DriverHelperController extends Controller
         if ($registrant->step_id <= 3) {
             return back();
         }
+
+        if ($user_id != null) {
+            $user = User::find($user_id);
+            return view('registration.driver_helper.registers5')->with("user", $user);
+        } 
 
         return view('registration.driver_helper.registers5');
     }
@@ -194,14 +208,17 @@ class DriverHelperController extends Controller
 
         $request->validate([
             "phone_number1" => ["phone:PH", "required"],
-            "phone_number2" => ["phone:PH", "required"],
-            "email" => ["email", "required", 'regex:/[(@gmail.com)|(@yahoo.com)]$/']
+            "phone_number2" => "nullable|phone:PH",
+            "email" => ["email", "required", 'regex:/([A-Za-z0-9]+)(@gmail.com)|(@yahoo.com)$/']
         ], [
-            'phone_number1.phone' => 'Invalid phone number e.g.(0909 090 0909)',
-            'phone_number2.phone' => 'Invalid phone number e.g.(0909 090 0909)',
-            'email.regex' => 'Invalid email e.g.(test@gmail.com or test@yahoo.com)',
-           
+            'phone_number1.phone' => 'Invalid phone number e.g.(XXXX XXX XXXX)',
+            'phone_number2.phone' => 'Invalid phone number e.g.(XXXX XXX XXXX)',
+            'email.regex' => 'Invalid email must end with @gmail.com or @yahoo.com',
         ]);
+
+        if ($request->phone_number1 == $request->phone_number2) {
+            return back()->withErrors(['phone_number1'=> 'Phone numbers must not match', 'phone_number2'=> 'Phone numbers must not match']);
+        }
 
         $user = User::find($user_id);
 
@@ -215,48 +232,108 @@ class DriverHelperController extends Controller
 
         return redirect("/driver_helper/step/3");
     }
+
      function stepThree(Request $request)
     {
         $user_id = $request->cookie('user_id');
 
         $request->validate([
-            "per_zip_code" => ["regex:/^(?:\d{4})$/i", "required" ],
-            "per_country" => ["required","string"],
-            "per_house_number" => [ "required","alpha_num"],
-            "per_street" => [ "required","alpha_num"],
+            "per_zip_code" => "required",
+            "per_country" => ["required","alpha"],
+            "per_house_number" => "nullable|alpha_num",
+            "per_street" => "nullable|alpha_num",
             "per_barangay" => [ "required","alpha_num"],
-            "per_city" => [ "required","alpha"],
+            "per_city" => "required",
             "per_province" => [ "required","alpha"],
             "per_region" => [ "required","string"],
-            "cur_zip_code" => ["regex:/^(?:\d{4})$/i","required"],
+            "cur_zip_code" => "required",
             "cur_country" => ["required","string"],
-            "cur_house_number" =>  ["required","alpha_num"],
-            "cur_street" =>  ["required","alpha_num"],
+            "cur_house_number" => "nullable|alpha_num",
+            "cur_street" =>  "nullable|alpha_num",
             "cur_barangay" =>  ["required","alpha_num"],
-            "cur_city" => ["required","alpha"],
+            "cur_city" => "required",
             "cur_province" =>  ["required","alpha"],
             "cur_region" =>  ["required","string"]
         ], [
-            'per_zip_code.regex' => 'Invalid Zip Code',
-            'per_country' => 'Invalid Country e.g.(Philippines)',
-            'per_house_number' => 'Invalid House number e.g.(213)',
-            'per_street' => 'Invalid Street Address e.g.(Silangan Road)',
-            'per_barangay'=> 'Invalid Barangay',
-            'per_city' => 'Invalid City e.g.(Calamba)',
-            'per_province' => 'Invalid Province e.g.(Laguna)',
-            'per_region' => 'Invalid Region e.g.(IV-A)',
-            'cur_zip_code.regex' => 'Invalid Zip Code',
-            'cur_country' => 'Invalid country e.g.(Philippines)',
-            'cur_house_number' => 'Invalid house number e.g.(213)',
-            'cur_street' => 'Invalid street address e.g.(Silangan Road)',
-            'cur_barangay' => 'Invalid Barangay',
-            'cur_city' => 'Invalid City e.g.(Calamba)',
-            'cur_province' => 'Invalid Province e.g.(Laguna)',
-            'cur_region' => 'Invalid Region e.g.(IV-A)'
+            'per_zip_code.required' => 'Invalid Zip Code',
+            'per_country.alpha' => 'Invalid Country e.g.(Philippines)',
+            'per_country.required' => 'Field required',
+            'per_house_number.regex' => 'Invalid House number e.g.(213)',
+            'per_street.regex' => 'Invalid Street Address e.g.(Silangan Road)',
+            'per_barangay.regex'=> 'Invalid Barangay',
+            'per_city.required' => 'Field required',
+            'per_province.alpha' => 'Invalid Province e.g.(Laguna)',
+            'per_region.regex' => 'Invalid Region e.g.(IV-A)',
+            'cur_zip_code.required' => 'Invalid Zip Code',
+            'cur_country.alpha' => 'Invalid country e.g.(Philippines)',
+            'cur_country.required' => 'Field required',
+            'cur_house_number.regex' => 'Invalid house number e.g.(213)',
+            'cur_street.regex' => 'Invalid street address e.g.(Silangan Road)',
+            'cur_barangay.regex' => 'Invalid Barangay',
+            'cur_city.required' => 'Field required',
+            'cur_province.alpha' => 'Invalid Province e.g.(Laguna)',
+            'cur_region.regex' => 'Invalid Region e.g.(IV-A)'
            
         ]);
 
-       
+        $user = User::find($user_id);
+
+        $user->per_zip_code = $request->per_zip_code;
+        $user->per_country = $request->per_country;
+        $user->per_house_number = $request->per_house_number;
+        $user->per_street = $request->per_street;
+        $user->per_barangay = $request->per_barangay;
+        $user->per_city = $request->per_city;
+        $user->per_province = $request->per_province;
+        $user->per_region = $request->per_region;
+
+        $user->cur_zip_code = $request->cur_zip_code;
+        $user->cur_country = $request->cur_country;
+        $user->cur_house_number = $request->cur_house_number;
+        $user->cur_street = $request->cur_street;
+        $user->cur_barangay = $request->cur_barangay;
+        $user->cur_city = $request->cur_city;
+        $user->cur_province = $request->cur_province;
+        $user->cur_region = $request->cur_region;
+
+        $user->save();
+
+        Registration::where("user_id", $user_id)->update(["step_id" => 4]);
+
+        return redirect("/driver_helper/step/4");
+    }
+
+    function stepFour(Request $request)
+    {
+        $user_id = $request->cookie('user_id');
+
+        $request->validate([
+            "emergency_name" => ["string", "required"],
+            "emergency_relationship" => ["string", "required"],
+            "emergency_phone" => "phone:PH",
+            "emergency_email" => ["email", "required", 'regex:/([A-Za-z0-9]+)(@gmail.com)|(@yahoo.com)$/'],
+            "emergency_address" => ["string", "required"],
+        ], [
+            'emergency_name.string' => 'Invalid format',
+            'emergency_relationship.string' => 'Invalid format',
+            'emergency_phone.phone' =>  'Invalid phone number e.g.(XXXX XXX XXXX)',
+            'emergency_email.regex' => 'Invalid email must end with @gmail.com or @yahoo.com',
+            'emergency_address.string' => 'Invalid format',
+        ]);
+
+        $user = User::find($user_id);
+
+        $user->emergency_name = $request->emergency_name;
+        $user->emergency_relationship = $request->emergency_relationship;
+        $user->emergency_phone = $request->emergency_phone;
+        $user->emergency_email = $request->emergency_email;
+        $user->emergency_address = $request->emergency_address;
+
+        $user->save();
+
+        Registration::where("user_id", $user_id)->update(["step_id" => 5]);
+
+        return redirect("/driver_helper/step/5");
     }
 
    

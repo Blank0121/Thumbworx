@@ -15,17 +15,10 @@
 </head>
 
 <body class="pb-12 bg-gradient-to-r from-[#0E0F62] to-[#1D1FC8]">
-    <div class="min-h-screen flex justify-center gap-8 sm:justify-center sm:pt-0">
-        <div class="flex flex-col w-max gap-52">
-            <div>
-                <span class="absolute top-10 left-[-10px] w-[40%] rounded-full bg-white h-6"></span>
-                <span class="absolute top-20 left-[-10px] w-[30%] rounded-full bg-white h-6"></span>
-                <span class="absolute top-[120px] left-[-10px] w-[20%] rounded-full bg-white h-6"></span>
-            </div>
-            <div class="max-w-md">
-                <h1 class="text-4xl font-bold uppercase text-white text-center app-title">Thumbworx</h1>
-                <x-application-logo />
-            </div>
+    <div class="min-h-screen flex items-center justify-center gap-8 sm:pt-0">
+        <div class="max-w-md">
+            <h1 class="text-4xl font-bold uppercase text-white text-center app-title">Thumbworx</h1>
+            <x-application-logo />
         </div>
         <div class="flex flex-col gap-2 self-center">
             <div class="flex flex-col items-center">

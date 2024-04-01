@@ -39,3 +39,11 @@
     border-width: 2px !important;
     border-color: #4f46e5 !important;
 }
+
+.per_country {
+    margin: 0 !important;
+}
+
+.cur_country {
+    margin: 0 !important;
+}

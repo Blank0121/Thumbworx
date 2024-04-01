@@ -43,14 +43,13 @@
 
 
             <div class="flex w-full justify-between">
-
-                <x-bladewind::button size="small" color="black" can_submit="true" name="btn-save" has_spinner="true"
-                    onclick="showModal('success')">Save As Draft </x-bladewind.button>
-                    <x-bladewind::button size="small" color="black" can_submit="true" name="btn-save"
-                        has_spinner="true" onclick="showModal('Continue')">Next </x-bladewind.button>
+                <x-bladewind.button size="small" can_submit="false" onclick="showModal('save-draft')">Save as
+                    draft</x-bladewind.button>
+                <x-bladewind.button can_submit="true" size="small">Finish</x-bladewind.button>
             </div>
         </form>
         </div>
         </div>
     </x-registration-card>
+    <x-confirm-draft-modal />
 </x-registration-layout>
